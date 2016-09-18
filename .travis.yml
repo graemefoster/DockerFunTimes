@@ -18,4 +18,4 @@ branches:
   only:
     - master
 script:  
-  - cd ./Example-4 && ./build.sh
+  - ./build.sh
