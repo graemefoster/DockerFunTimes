@@ -1,5 +1,4 @@
 cd src
 dotnet restore
 dotnet publish
-docker build -t containerfun $TRAVIS_BUILD_DIR/.
-
+docker build -t containerfun /.
