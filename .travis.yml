@@ -1,0 +1,21 @@
+language: csharp
+dotnet: 1.0.0-preview2-003121
+sudo: required  
+services:
+  - docker
+dist: trusty  
+mono: none
+addons:  
+  apt:
+    packages:
+    - gettext
+    - libcurl4-openssl-dev
+    - libicu-dev
+    - libssl-dev
+    - libunwind8
+    - zlib1g
+branches:  
+  only:
+    - master
+script:  
+  - cd ./Example-4 && ./build.sh
