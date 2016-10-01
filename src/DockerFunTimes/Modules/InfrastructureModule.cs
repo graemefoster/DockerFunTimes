@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Autofac;
 using MediatR;
 
-namespace DDDPerth.Modules
+namespace DockerFunTimes.Modules
 {
     public class InfrastructureModule: Autofac.Module
     {

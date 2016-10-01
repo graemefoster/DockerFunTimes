@@ -1,7 +1,8 @@
 
 using System.Collections.Generic;
+using DDDPerth.Features.Assessment;
 
-namespace DDDPerth.Features.Assessment
+namespace DockerFunTimes.Features.Assessment
 {
     public class RequestValidator : IValidate<AssessmentRequest>
     {

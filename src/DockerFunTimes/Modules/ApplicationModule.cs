@@ -4,7 +4,7 @@ using Autofac;
 using DDDPerth.Features.Assessment;
 using MediatR;
 
-namespace DDDPerth.Modules
+namespace DockerFunTimes.Modules
 {
     public class ApplicationModule: Autofac.Module
     {

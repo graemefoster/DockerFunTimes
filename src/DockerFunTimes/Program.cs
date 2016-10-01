@@ -2,15 +2,16 @@
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DDDPerth;
+using DockerFunTimes.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using DDDPerth.Modules;
 
-namespace DDDPerth
+namespace DockerFunTimes
 {
-    public class Example4
+    public class Program
     {
         public static void Main(string[] args)
         {

@@ -1,11 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DDDPerth.Features.Assessment
+namespace DockerFunTimes.Features.Assessment
 {
-    public class AssessmentApiController : Microsoft.AspNetCore.Mvc.Controller
+    public class AssessmentApiController : Controller
     {
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public AssessmentApiController(IMediator mediator)
         {

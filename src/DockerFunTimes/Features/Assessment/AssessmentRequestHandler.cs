@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+using MediatR;
 
-namespace DDDPerth.Features.Assessment
+namespace DockerFunTimes.Features.Assessment
 {
-    public class AssessmentRequestHandler : MediatR.IRequestHandler<AssessmentRequest, AssessmentResponse>
+    public class AssessmentRequestHandler : IRequestHandler<AssessmentRequest, AssessmentResponse>
     {
         public AssessmentResponse Handle(AssessmentRequest message)
         {
