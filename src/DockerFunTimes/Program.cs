@@ -2,7 +2,6 @@
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DDDPerth;
 using DockerFunTimes.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,11 +41,12 @@ namespace DockerFunTimes
 
             var builder = new ContainerBuilder();
             builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<MediatorModule>();
             builder.RegisterModule<ApplicationModule>();
 
             builder.Populate(services);
 
-            this.ApplicationContainer = builder.Build();
+            ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(this.ApplicationContainer);
         }
