@@ -3,8 +3,7 @@
   "buildOptions": {
     "debugType": "portable",
     "emitEntryPoint": true,
-    "outputName": "dockerfuntimes",
-    "copyToOutput": { "includeFiles": [ "localconfig.json" ] }
+    "outputName": "dockerfuntimes"
   },
   "testRunner": "xunit",
   "dependencies": {
