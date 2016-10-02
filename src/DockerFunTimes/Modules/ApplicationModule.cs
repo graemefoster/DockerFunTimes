@@ -11,9 +11,13 @@ namespace DockerFunTimes.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                    .As(t => t.GetInterfaces()
+                .As(t => t.GetInterfaces()
                     .Where(a => a.IsClosedTypeOf(typeof(IRequestHandler<,>)))
                     .Select(a => new Autofac.Core.KeyedService("commandHandler", a)));
+
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                .As(t => t.GetInterfaces()
+                    .Where(a => a.IsClosedTypeOf(typeof(IAsyncRequestHandler<,>))));
 
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                     .AsClosedTypesOf(typeof(IValidate<>));

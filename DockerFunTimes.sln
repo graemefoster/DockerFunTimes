@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{4701
 ProjectSection(SolutionItems) = preProject
 	build.sh = build.sh
 	Dockerfile = Dockerfile
+	.travis.yml = .travis.yml
+	.gitignore = .gitignore
 EndProjectSection
 EndProject
 Global

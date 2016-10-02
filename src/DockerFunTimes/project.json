@@ -20,7 +20,8 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Swashbuckle": "6.0.0-beta901",
     "RabbitMQ.Client": "4.1.0-rc1",
-    "NETStandard.Library": "1.6.0"
+    "NETStandard.Library": "1.6.0",
+    "WindowsAzure.Storage" : "7.2.1"
   },
   "frameworks": {
     "netcoreapp1.0": {
@@ -30,7 +31,7 @@
           "version": "1.0.0"
         }
       },
-      "imports": "dnxcore50"
+      "imports": ["dnxcore50", "portable-net45+win8"]
     }
   }
 }
