@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
 
 namespace DockerFunTimes.Infrastructure
@@ -14,12 +15,21 @@ namespace DockerFunTimes.Infrastructure
                 .CreateCloudTableClient();
         }
 
-        public async Task Write(ITableEntity entity)
+        public async Task Write<T>(T entity) where T: ITableEntity
         {
-            var table = _cloudStorageClient.GetTableReference(entity.GetType().Name);
+            var table = _cloudStorageClient.GetTableReference(typeof(T).Name);
             await table.CreateIfNotExistsAsync();
-
             await table.ExecuteAsync(TableOperation.Insert(entity));
+        }
+
+        public async Task<IEnumerable<T>> All<T>() where T:ITableEntity, new()
+        {
+            var table = _cloudStorageClient.GetTableReference(typeof(T).Name);
+            await table.CreateIfNotExistsAsync();
+            var token = new TableContinuationToken();
+            var query = new TableQuery<T> {TakeCount = 10};
+            var results = await table.ExecuteQuerySegmentedAsync(query, token);
+            return results.Results;
         }
     }
 }

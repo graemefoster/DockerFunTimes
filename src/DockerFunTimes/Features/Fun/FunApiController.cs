@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,12 @@ namespace DockerFunTimes.Features.Fun
         [HttpGet("api/add/{NumberOne}/{NumberTwo}")]
         public Task<FunResponse> Get(FunRequest request) {
             return _mediator.SendAsync(request);
+        }
+
+        [HttpGet("api/add")]
+        public Task<AllResponse> All()
+        {
+            return _mediator.SendAsync(new AllRequest());
         }
     }
 }
