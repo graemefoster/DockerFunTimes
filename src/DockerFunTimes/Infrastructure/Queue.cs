@@ -9,9 +9,9 @@ namespace DockerFunTimes.Infrastructure
     {
         private readonly ConnectionFactory _connectionFactory;
 
-        public Queue()
+        public Queue(ConfigurationSettings configurationSettings)
         {
-            _connectionFactory = new ConnectionFactory() { HostName = "rabbit" };
+            _connectionFactory = new ConnectionFactory() { Uri = configurationSettings.Configuration.RabbitConnection };
         }
 
         public void Publish<TMessage>(TMessage message)
