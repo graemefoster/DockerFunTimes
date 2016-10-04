@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 
@@ -10,7 +11,7 @@ namespace DockerFunTimes.Infrastructure
 
         public Queue()
         {
-            _connectionFactory = new ConnectionFactory() { HostName = "Rabbit" };
+            _connectionFactory = new ConnectionFactory() { HostName = "rabbit" };
         }
 
         public void Publish<TMessage>(TMessage message)
@@ -29,6 +30,8 @@ namespace DockerFunTimes.Infrastructure
                     routingKey: "helloWorld",
                     basicProperties: null,
                     body: body);
+
+                Console.WriteLine("Written message to rabbit queue");
             }
         }
     }

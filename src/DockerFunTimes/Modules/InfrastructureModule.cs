@@ -1,3 +1,4 @@
+using System;
 using Autofac;
 using DockerFunTimes.Infrastructure;
 
@@ -15,10 +16,12 @@ namespace DockerFunTimes.Modules
 
             if (configuration.Configuration.UseRabbit)
             {
+                Console.WriteLine("Registered the rabbit");
                 builder.RegisterType<Queue>().InstancePerLifetimeScope().AsImplementedInterfaces();
             }
             else
             {
+                Console.WriteLine("Registered the fake");
                 builder.RegisterType<FakeQueue>().InstancePerLifetimeScope().AsImplementedInterfaces();
             }
         }
