@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace DockerFunTimes
+namespace DockerFunTimes.Infrastructure
 {
     public class ReturnValidationErrorsFilter : IActionFilter
     {

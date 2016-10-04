@@ -2,6 +2,7 @@
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DockerFunTimes.Infrastructure;
 using DockerFunTimes.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

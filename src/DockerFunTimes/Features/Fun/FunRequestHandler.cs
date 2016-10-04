@@ -8,10 +8,12 @@ namespace DockerFunTimes.Features.Fun
     public class FunRequestHandler : IAsyncRequestHandler<FunRequest, FunResponse>
     {
         private readonly IStorage _storage;
+        private readonly IQueue _queue;
 
-        public FunRequestHandler(IStorage storage)
+        public FunRequestHandler(IStorage storage, IQueue queue)
         {
             _storage = storage;
+            _queue = queue;
         }
 
         public async Task<FunResponse> Handle(FunRequest message)
@@ -24,6 +26,8 @@ namespace DockerFunTimes.Features.Fun
                 Timestamp = DateTimeOffset.Now,
                 RowKey = Guid.NewGuid().ToString()
             });
+
+            _queue.Publish(message);
 
             return new FunResponse()
             {
