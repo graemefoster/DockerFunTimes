@@ -27,7 +27,7 @@ namespace DockerFunTimes.Infrastructure
 
                 var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
                 channel.BasicPublish(exchange: "",
-                    routingKey: "helloWorld",
+                    routingKey: "GraemesTestQueue",
                     basicProperties: null,
                     body: body);
 
