@@ -20,7 +20,7 @@ namespace DockerFunTimes.Infrastructure
             using (var channel = client.CreateModel())
             {
                 var queue = channel.QueueDeclare("GraemesTestQueue",
-                    durable: false,
+                    durable: true,
                     exclusive: false,
                     autoDelete: false,
                     arguments: null);
