@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DockerFunTimes.Infrastructure;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 
 namespace DockerFunTimes
 {
@@ -15,22 +17,66 @@ namespace DockerFunTimes
     {
         public static void Main(string[] args)
         {
+            //Yukky -
+            UpdateDatabase();
+
             var host = new WebHostBuilder()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseKestrel()
                 .UseUrls("http://*:5000")
                 .UseStartup<Startup>()
                 .Build();
- 
+
             host.Run();
+        }
+
+        private static void UpdateDatabase()
+        {
+            bool keepTrying = true;
+            while (keepTrying)
+            {
+                try
+                {
+                    using (
+                        var connection =
+                            new MySql.Data.MySqlClient.MySqlConnection(
+                                new ConfigurationSettings().Configuration.DatabaseConnection))
+                    {
+                        connection.Open();
+                        ExecCommand(connection, "create database FunTimes;");
+                        ExecCommand(connection, "use FunTimes;");
+                        ExecCommand(connection, @"create table Foo {
+    Id integer auto_increment primary key,
+    Name varchar(100),
+    DateOfBirth date
+                                            };");
+                    }
+                    keepTrying = false;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Thread.Sleep(5000);
+                }
+            }
+        }
+
+        private static void ExecCommand(MySqlConnection connection, string sql)
+        {
+            using (var cmd = connection.CreateCommand())
+            {
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 
     public class Startup
     {
         public IContainer ApplicationContainer { get; private set; }
- 
-        public IServiceProvider ConfigureServices(IServiceCollection services) {
+
+        public IServiceProvider ConfigureServices(IServiceCollection services)
+        {
 
             services.AddMvc()
                 .AddXmlDataContractSerializerFormatters()
@@ -65,4 +111,5 @@ namespace DockerFunTimes
 
             appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
         }
-   }}
+    }
+}

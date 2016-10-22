@@ -257,3 +257,5 @@ project.lock.json
 
 #Whilst working out how to put secrets in travis!!
 localconfig.json
+.env
+

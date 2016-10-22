@@ -1,0 +1,49 @@
+version: '2'
+services:
+  graemesaspnetcore:
+    image: aspnetcoreondocker
+    ports:
+      - 8080:5000
+    links:
+      - graemesrabbit:reallygraemesrabbit
+      - graemesmysql:reallygraemesmysql
+    volumes:
+      - ../localconfigurations:/config
+    depends_on:
+      - graemesrabbit
+    entrypoint: /waitforit.sh reallygraemesmysql:3306 -- dotnet /root/dockerfuntimes.dll
+
+  graemesrabbitreader:
+    image: graemesrabbitreader
+    links:
+      - graemesrabbit:reallygraemesrabbit
+      - graemesmysql:reallygraemesmysql
+    volumes:
+      - ../localconfigurations:/config
+    depends_on:
+      - graemesrabbit
+    entrypoint: /waitforit.sh reallygraemesmysql:3306 -- dotnet /root/dockerfunrabbitreader.dll
+
+  graemesrabbit:
+    image: rabbitmq:3-management
+    ports:
+      - 8081:15672
+    hostname: linuxfun-rabbit-test-hostname
+    env_file:
+      - ./scripts/.env
+
+  graemesmysql:
+    image: library/mysql
+    hostname: linuxfun-mysql-test-hostname
+    ports:
+      - 3606:3606
+    env_file:
+      - ./scripts/.env
+
+
+
+
+
+
+
+

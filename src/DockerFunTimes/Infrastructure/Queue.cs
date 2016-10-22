@@ -25,8 +25,13 @@ namespace DockerFunTimes.Infrastructure
                     autoDelete: false,
                     arguments: null);
 
+                channel.ExchangeDeclare("GraemesFanoutExchange",
+                    "fanout",
+                    true,
+                    false, null);
+
                 var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
-                channel.BasicPublish(exchange: "",
+                channel.BasicPublish(exchange: "GraemesFanoutExchange",
                     routingKey: "GraemesTestQueue",
                     basicProperties: null,
                     body: body);

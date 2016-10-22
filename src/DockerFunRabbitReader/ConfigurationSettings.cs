@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace DockerFunTimes.Infrastructure
+namespace DockerFunRabbitReader
 {
     public class ConfigurationSettings
     {

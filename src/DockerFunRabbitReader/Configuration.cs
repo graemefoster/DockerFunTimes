@@ -1,10 +1,9 @@
-﻿namespace DockerFunTimes.Infrastructure
+﻿namespace DockerFunRabbitReader
 {
     public class Configuration
     {
         public string BlobStoragePassword { get; set; }
         public bool UseRabbit { get; set; }
         public string RabbitConnection { get; set; }
-        public string DatabaseConnection { get; set; }
     }
 }
