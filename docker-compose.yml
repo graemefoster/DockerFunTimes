@@ -35,8 +35,6 @@ services:
   graemesmysql:
     image: library/mysql
     hostname: linuxfun-mysql-test-hostname
-    ports:
-      - 3606:3606
     env_file:
       - ./scripts/.env
 

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using DDDPerth.Features.Assessment;
+using DockerFunTimes.Features.Fun;
 using MediatR;
 
 namespace DockerFunTimes.Modules
@@ -26,7 +27,6 @@ namespace DockerFunTimes.Modules
                     typeof(ValidationDecorator<,>),
                     typeof(IRequestHandler<,>),
                     fromKey: "commandHandler");
-
         }
     }
 }

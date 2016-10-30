@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DockerFunTimes.Features.Fun;
 using DockerFunTimes.Infrastructure;
 using DockerFunTimes.Modules;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 
 namespace DockerFunTimes
 {
@@ -43,13 +45,13 @@ namespace DockerFunTimes
                                 new ConfigurationSettings().Configuration.DatabaseConnection))
                     {
                         connection.Open();
-                        ExecCommand(connection, "create database FunTimes;");
+                        ExecCommand(connection, "create database if not exists FunTimes;");
                         ExecCommand(connection, "use FunTimes;");
-                        ExecCommand(connection, @"create table Foo {
+                        ExecCommand(connection, @"create table if not exists Foo (
     Id integer auto_increment primary key,
     Name varchar(100),
     DateOfBirth date
-                                            };");
+                                            );");
                     }
                     keepTrying = false;
                 }
@@ -85,6 +87,15 @@ namespace DockerFunTimes
                 });
 
             services.AddSwaggerGen();
+
+            var sqlconbuilder =
+                new MySqlConnectionStringBuilder(new ConfigurationSettings().Configuration.DatabaseConnection)
+                {
+                    Database = "FunTimes"
+                };
+
+            services.AddDbContext<TerribleEntityContext>(
+                options => options.UseMySQL(sqlconbuilder.ConnectionString));
 
             var builder = new ContainerBuilder();
             builder.RegisterModule<InfrastructureModule>();
